@@ -23,12 +23,6 @@ class MyApp(QWidget):
             qr.moveCenter(cp)
             self.move(qr.topLeft())
 
-            # 'Exit' 버튼 추가
-            self.add_exit_button()
-
-            self.show()
-
-        def add_exit_button(self):
             btn_width, btn_height = 70, 30  # 버튼의 폭과 높이
             btn_x = self.width() - btn_width - 10  # 창의 너비에서 버튼의 폭과 간격을 뺀 값
             btn_y = self.height() - btn_height - 10  # 창의 높이에서 버튼의 높이와 간격을 뺀 값
