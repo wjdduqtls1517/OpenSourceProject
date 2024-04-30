@@ -16,6 +16,17 @@ class MyApp(QWidget):
         # 창을 화면의 정가운데에 위치시키기
         self.center()
 
+        # 모든 위젯에 대해 Arial 폰트 설정
+        font = QFont('Arial', 12)
+
+        # '건강관리' QLabel 추가
+        lbl = QLabel('건강관리', self)
+        lbl.setFont(font)  # 폰트 설정
+        lbl.adjustSize()  # 텍스트에 맞게 크기 조정
+        lbl.move(int(self.width() / 2 - lbl.width() / 2), 20)  # 창 상단 중앙에 배치
+
+
+
 
 
     def center(self):
