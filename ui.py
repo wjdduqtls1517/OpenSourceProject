@@ -1,7 +1,9 @@
 import sys
-from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxLayout, QRadioButton, QComboBox, QCheckBox, QGridLayout, QPushButton, QDesktopWidget, QStackedWidget
+from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxLayout, QRadioButton, QComboBox, QCheckBox, \
+    QGridLayout, QPushButton, QDesktopWidget, QStackedWidget
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
+
 
 class MyApp(QWidget):
 
@@ -90,11 +92,24 @@ class MyApp(QWidget):
 
         # 질병 체크박스 레이아웃
         disease_layout = QGridLayout()
-        diseases = [f'질병 {i}' for i in range(1, 22)]
+        diseases = [
+            '간질환', '갑상선', '고혈압', '골다공증', '관절염', '노인성빈혈',
+            '노인성우울증', '녹내장', '뇌동맥류', '뇌졸증', '당뇨병', '동맥경화증',
+            '변비', '파킨슨병', '신장병', '오십견', '요통', '위장병', '치매',
+            '통풍', '퇴행성근골격장애'
+        ]
+        disease_info = [
+            '간질환 정보', '갑상선 정보', '고혈압 정보', '골다공증 정보', '관절염 정보',
+            '노인성빈혈 정보', '노인성우울증 정보', '녹내장 정보', '뇌동맥류 정보', '뇌졸증 정보',
+            '당뇨병 정보', '동맥경화증 정보', '변비 정보', '파킨슨병 정보', '신장병 정보',
+            '오십견 정보', '요통 정보', '위장병 정보', '치매 정보', '통풍 정보',
+            '퇴행성근골격장애 정보'
+        ]
+
         for i, disease in enumerate(diseases):
             checkbox = QCheckBox(disease, self)
             checkbox.setFont(QFont('Noto Sans', 14))
-            checkbox.setToolTip(f'{disease} 정보')  # 툴팁 설정
+            checkbox.setToolTip(disease_info[i])
             row = i // 7
             col = i % 7
             disease_layout.addWidget(checkbox, row, col)
@@ -125,6 +140,7 @@ class MyApp(QWidget):
 
     def exit_application(self):
         QApplication.instance().quit()
+
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
