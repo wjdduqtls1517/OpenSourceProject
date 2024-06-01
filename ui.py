@@ -176,3 +176,9 @@ class MyApp(QWidget):
         caution_disease_frame.setLayout(caution_disease_box)
         caution_disease_frame.setFrameShape(QFrame.Box)
         vbox.addWidget(caution_disease_frame)
+
+        # 알아보기 버튼
+        learn_more_caution_button = QPushButton('알아보기', self)
+        learn_more_caution_button.setFont(QFont('Noto Sans', 14))
+        learn_more_caution_button.setFixedSize(120, 40)
+        caution_disease_box.addWidget(learn_more_caution_button, alignment=Qt.AlignRight)
