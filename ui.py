@@ -134,3 +134,21 @@ class MyApp(QWidget):
         self.user_info_label.setFont(QFont('Noto Sans', 18))
         self.user_info_label.setAlignment(Qt.AlignCenter)
         vbox.addWidget(self.user_info_label)
+
+        # 나의 질병 레이아웃
+        my_disease_box = QVBoxLayout()
+        my_disease_label = QLabel('나의 질병', self)
+        my_disease_label.setFont(QFont('Noto Sans', 16))
+        my_disease_label.setAlignment(Qt.AlignCenter)
+
+        self.my_disease_list = QTextEdit(self)
+        self.my_disease_list.setFont(QFont('Noto Sans', 14))
+        self.my_disease_list.setReadOnly(True)
+
+        my_disease_box.addWidget(my_disease_label)
+        my_disease_box.addWidget(self.my_disease_list)
+
+        my_disease_frame = QFrame(self)
+        my_disease_frame.setLayout(my_disease_box)
+        my_disease_frame.setFrameShape(QFrame.Box)
+        vbox.addWidget(my_disease_frame)
