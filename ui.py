@@ -126,24 +126,11 @@ class MyApp(QWidget):
 
         self.second_page.setLayout(vbox)
 
-    def center(self):
-        qr = self.frameGeometry()
-        cp = QDesktopWidget().availableGeometry().center()
-        qr.moveCenter(cp)
-        self.move(qr.topLeft())
+    def initThirdPage(self):
+        vbox = QVBoxLayout()
 
-    def nextPage(self):
-        self.stack.setCurrentWidget(self.second_page)
-
-    def prevPage(self):
-        self.stack.setCurrentWidget(self.first_page)
-
-    def exit_application(self):
-        QApplication.instance().quit()
-
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    ex = MyApp()
-    ex.show()
-    sys.exit(app.exec_())
+        # 사용자 정보 표시
+        self.user_info_label = QLabel(self)
+        self.user_info_label.setFont(QFont('Noto Sans', 18))
+        self.user_info_label.setAlignment(Qt.AlignCenter)
+        vbox.addWidget(self.user_info_label)
