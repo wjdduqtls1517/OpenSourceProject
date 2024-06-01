@@ -218,3 +218,24 @@ class MyApp(QWidget):
         cp = QDesktopWidget().availableGeometry().center()
         qr.moveCenter(cp)
         self.move(qr.topLeft())
+
+    def updateUserInfo(self):
+        gender = '남자' if self.male_radio.isChecked() else '여자' if self.female_radio.isChecked() else '성별 없음'
+        age = self.age_combo.currentText()
+        self.user_info_label.setText(f'성별: {gender}, 나이: {age}')
+
+    def updateThirdPage(self):
+        selected_diseases = [checkbox.text() for checkbox in self.disease_checkboxes if checkbox.isChecked()]
+        self.my_disease_list.setText('\n'.join(selected_diseases))
+
+        age = self.age_combo.currentText()
+        if age == '60대':
+            caution_diseases = self.diseases[:5]
+        elif age == '70대':
+            caution_diseases = self.diseases[5:10]
+        elif age == '80대':
+            caution_diseases = self.diseases[10:15]
+        else:
+            caution_diseases = []
+
+        self.caution_disease_list.setText('\n'.join(caution_diseases))
