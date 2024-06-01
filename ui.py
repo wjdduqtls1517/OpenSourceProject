@@ -152,3 +152,9 @@ class MyApp(QWidget):
         my_disease_frame.setLayout(my_disease_box)
         my_disease_frame.setFrameShape(QFrame.Box)
         vbox.addWidget(my_disease_frame)
+
+        # 알아보기 버튼
+        learn_more_button = QPushButton('알아보기', self)
+        learn_more_button.setFont(QFont('Noto Sans', 14))
+        learn_more_button.setFixedSize(100, 40)
+        my_disease_box.addWidget(learn_more_button, alignment=Qt.AlignRight)
