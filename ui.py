@@ -239,3 +239,9 @@ class MyApp(QWidget):
             caution_diseases = []
 
         self.caution_disease_list.setText('\n'.join(caution_diseases))
+
+        if __name__ == '__main__':
+            app = QApplication(sys.argv)
+            ex = MyApp()
+            ex.show()
+            sys.exit(app.exec_())
