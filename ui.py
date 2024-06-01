@@ -182,3 +182,21 @@ class MyApp(QWidget):
         learn_more_caution_button.setFont(QFont('Noto Sans', 14))
         learn_more_caution_button.setFixedSize(120, 40)
         caution_disease_box.addWidget(learn_more_caution_button, alignment=Qt.AlignRight)
+
+        # 버튼 레이아웃
+        button_layout = QHBoxLayout()
+        prev_button = QPushButton('이전', self)
+        prev_button.setFont(QFont('Noto Sans', 14))
+        prev_button.setFixedSize(100, 40)
+        prev_button.clicked.connect(self.prevPage)
+        next_button = QPushButton('다음', self)
+        next_button.setFont(QFont('Noto Sans', 14))
+        next_button.setFixedSize(100, 40)
+        next_button.clicked.connect(self.nextPage)
+        button_layout.addWidget(prev_button, alignment=Qt.AlignLeft)
+        button_layout.addWidget(next_button, alignment=Qt.AlignRight)
+        vbox.addLayout(button_layout)
+
+        self.third_page.setLayout(vbox)
+
+
