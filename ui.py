@@ -158,3 +158,21 @@ class MyApp(QWidget):
         learn_more_button.setFont(QFont('Noto Sans', 14))
         learn_more_button.setFixedSize(100, 40)
         my_disease_box.addWidget(learn_more_button, alignment=Qt.AlignRight)
+
+        # 조심해야 할 병 레이아웃
+        caution_disease_box = QVBoxLayout()
+        caution_disease_label = QLabel('조심해야 할 병', self)
+        caution_disease_label.setFont(QFont('Noto Sans', 16))
+        caution_disease_label.setAlignment(Qt.AlignCenter)
+
+        self.caution_disease_list = QTextEdit(self)
+        self.caution_disease_list.setFont(QFont('Noto Sans', 14))
+        self.caution_disease_list.setReadOnly(True)
+
+        caution_disease_box.addWidget(caution_disease_label)
+        caution_disease_box.addWidget(self.caution_disease_list)
+
+        caution_disease_frame = QFrame(self)
+        caution_disease_frame.setLayout(caution_disease_box)
+        caution_disease_frame.setFrameShape(QFrame.Box)
+        vbox.addWidget(caution_disease_frame)
