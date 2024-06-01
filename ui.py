@@ -199,4 +199,16 @@ class MyApp(QWidget):
 
         self.third_page.setLayout(vbox)
 
+    def prevPage(self):
+        current_index = self.stack.currentIndex()
+        if current_index > 0:
+            self.stack.setCurrentIndex(current_index - 1)
 
+    def nextPage(self):
+        current_index = self.stack.currentIndex()
+        if current_index == 0:
+            self.updateUserInfo()
+        elif current_index == 1:
+            self.updateThirdPage()
+        if current_index < self.stack.count() - 1:
+            self.stack.setCurrentIndex(current_index + 1)
