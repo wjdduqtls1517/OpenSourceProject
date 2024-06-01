@@ -212,3 +212,9 @@ class MyApp(QWidget):
             self.updateThirdPage()
         if current_index < self.stack.count() - 1:
             self.stack.setCurrentIndex(current_index + 1)
+
+    def center(self):
+        qr = self.frameGeometry()
+        cp = QDesktopWidget().availableGeometry().center()
+        qr.moveCenter(cp)
+        self.move(qr.topLeft())
