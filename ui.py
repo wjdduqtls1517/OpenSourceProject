@@ -1,9 +1,9 @@
 import sys
+import os
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxLayout, QRadioButton, QComboBox, QCheckBox, \
     QGridLayout, QPushButton, QDesktopWidget, QStackedWidget, QFrame, QTextEdit
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
-
 
 class MyApp(QWidget):
 
@@ -101,19 +101,14 @@ class MyApp(QWidget):
             '변비', '파킨슨병', '신장병', '오십견', '요통', '위장병', '치매',
             '통풍', '퇴행성근골격장애'
         ]
-        self.disease_info = [
-            '간질환 정보', '갑상선 정보', '고혈압 정보', '골다공증 정보', '관절염 정보',
-            '노인성빈혈 정보', '노인성우울증 정보', '녹내장 정보', '뇌동맥류 정보', '뇌졸증 정보',
-            '당뇨병 정보', '동맥경화증 정보', '변비 정보', '파킨슨병 정보', '신장병 정보',
-            '오십견 정보', '요통 정보', '위장병 정보', '치매 정보', '통풍 정보',
-            '퇴행성근골격장애 정보'
-        ]
 
         self.disease_checkboxes = []
         for i, disease in enumerate(self.diseases):
             checkbox = QCheckBox(disease, self)
             checkbox.setFont(QFont('Noto Sans', 14))
-            checkbox.setToolTip(self.disease_info[i])
+            if disease == '간질환':
+                tooltip_text = self.readDiseaseInfo(os.path.join('diseases', '증상', '간질환_증상.txt'))
+                checkbox.setToolTip(tooltip_text)
             row = i // 7
             col = i % 7
             disease_layout.addWidget(checkbox, row, col)
@@ -187,8 +182,8 @@ class MyApp(QWidget):
         caution_disease_frame.setFrameShape(QFrame.Box)
         vbox.addWidget(caution_disease_frame)
 
-        # 알아보기 버튼
-        learn_more_caution_button = QPushButton('알아보기', self)
+        # 더 알아보기 버튼
+        learn_more_caution_button = QPushButton('더 알아보기', self)
         learn_more_caution_button.setFont(QFont('Noto Sans', 14))
         learn_more_caution_button.setFixedSize(120, 40)
         caution_disease_box.addWidget(learn_more_caution_button, alignment=Qt.AlignRight)
@@ -208,6 +203,13 @@ class MyApp(QWidget):
         vbox.addLayout(button_layout)
 
         self.third_page.setLayout(vbox)
+
+    def readDiseaseInfo(self, filepath):
+        try:
+            with open(filepath, 'r', encoding='utf-8') as file:
+                return file.read()
+        except Exception as e:
+            return f'파일을 읽는 중 오류가 발생했습니다: {e}'
 
     def prevPage(self):
         current_index = self.stack.currentIndex()
