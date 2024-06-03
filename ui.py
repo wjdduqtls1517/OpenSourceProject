@@ -5,6 +5,7 @@ from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxLay
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
 
+
 class MyApp(QWidget):
 
     def __init__(self):
@@ -45,13 +46,13 @@ class MyApp(QWidget):
         # 성별 라디오 버튼
         gender_layout = QHBoxLayout()
         gender_label = QLabel('성별', self)
-        gender_label.setFont(QFont('Noto Sans', 14))
+        gender_label.setFont(QFont('Noto Sans', 16))
         gender_layout.addWidget(gender_label)
 
         self.male_radio = QRadioButton('남자', self)
-        self.male_radio.setFont(QFont('Noto Sans', 14))
+        self.male_radio.setFont(QFont('Noto Sans', 16))
         self.female_radio = QRadioButton('여자', self)
-        self.female_radio.setFont(QFont('Noto Sans', 14))
+        self.female_radio.setFont(QFont('Noto Sans', 16))
         gender_layout.addWidget(self.male_radio)
         gender_layout.addWidget(self.female_radio)
         vbox.addLayout(gender_layout)
@@ -59,9 +60,9 @@ class MyApp(QWidget):
         # 나이 콤보박스
         age_layout = QHBoxLayout()
         age_label = QLabel('나이', self)
-        age_label.setFont(QFont('Noto Sans', 14))
+        age_label.setFont(QFont('Noto Sans', 16))
         self.age_combo = QComboBox(self)
-        self.age_combo.setFont(QFont('Noto Sans', 14))
+        self.age_combo.setFont(QFont('Noto Sans', 16))
         self.age_combo.addItem('선택 안함')
         self.age_combo.addItems([f'{i}대' for i in range(60, 90, 10)])
         age_layout.addWidget(age_label)
@@ -71,11 +72,11 @@ class MyApp(QWidget):
         # 버튼 레이아웃
         button_layout = QHBoxLayout()
         prev_button = QPushButton('이전', self)
-        prev_button.setFont(QFont('Noto Sans', 14))
+        prev_button.setFont(QFont('Noto Sans', 16))
         prev_button.setFixedSize(100, 40)
         prev_button.clicked.connect(self.prevPage)
         next_button = QPushButton('다음', self)
-        next_button.setFont(QFont('Noto Sans', 14))
+        next_button.setFont(QFont('Noto Sans', 16))
         next_button.setFixedSize(100, 40)
         next_button.clicked.connect(self.nextPage)
         button_layout.addWidget(prev_button, alignment=Qt.AlignLeft)
@@ -95,6 +96,7 @@ class MyApp(QWidget):
 
         # 질병 체크박스 레이아웃
         disease_layout = QGridLayout()
+        disease_layout.setSpacing(10)  # 간격을 조정
         self.diseases = [
             '간질환', '갑상선', '고혈압', '골다공증', '관절염', '노인성빈혈',
             '노인성우울증', '녹내장', '뇌동맥류', '뇌졸증', '당뇨병', '동맥경화증',
@@ -105,7 +107,7 @@ class MyApp(QWidget):
         self.disease_checkboxes = []
         for i, disease in enumerate(self.diseases):
             checkbox = QCheckBox(disease, self)
-            checkbox.setFont(QFont('Noto Sans', 14))
+            checkbox.setFont(QFont('Noto Sans', 16))
             tooltip_text = self.readDiseaseInfo(os.path.join('diseases', '증상', f'{disease}_증상.txt'))
             checkbox.setToolTip(tooltip_text)
             row = i // 7
