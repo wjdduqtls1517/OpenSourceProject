@@ -106,9 +106,8 @@ class MyApp(QWidget):
         for i, disease in enumerate(self.diseases):
             checkbox = QCheckBox(disease, self)
             checkbox.setFont(QFont('Noto Sans', 14))
-            if disease == '간질환':
-                tooltip_text = self.readDiseaseInfo(os.path.join('diseases', '증상', '간질환_증상.txt'))
-                checkbox.setToolTip(tooltip_text)
+            tooltip_text = self.readDiseaseInfo(os.path.join('diseases', '증상', f'{disease}_증상.txt'))
+            checkbox.setToolTip(tooltip_text)
             row = i // 7
             col = i % 7
             disease_layout.addWidget(checkbox, row, col)
