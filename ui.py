@@ -1,7 +1,7 @@
 import sys
 import os
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxLayout, QRadioButton, QComboBox, QCheckBox, \
-    QGridLayout, QPushButton, QDesktopWidget, QStackedWidget, QFrame, QTextEdit
+    QGridLayout, QPushButton, QDesktopWidget, QStackedWidget, QFrame, QTextEdit, QSpacerItem, QSizePolicy
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt
 
@@ -43,9 +43,11 @@ class MyApp(QWidget):
         title.setAlignment(Qt.AlignCenter)
         vbox.addWidget(title)
 
+        vbox.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
         # 성별 라디오 버튼
         gender_layout = QHBoxLayout()
-        gender_label = QLabel('성별', self)
+        gender_label = QLabel('성별을 선택해 주세요.', self)
         gender_label.setFont(QFont('Noto Sans', 16))
         gender_layout.addWidget(gender_label)
 
@@ -57,9 +59,11 @@ class MyApp(QWidget):
         gender_layout.addWidget(self.female_radio)
         vbox.addLayout(gender_layout)
 
+        vbox.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
         # 나이 콤보박스
         age_layout = QHBoxLayout()
-        age_label = QLabel('나이', self)
+        age_label = QLabel('나이를 선택해 주세요.', self)
         age_label.setFont(QFont('Noto Sans', 16))
         self.age_combo = QComboBox(self)
         self.age_combo.setFont(QFont('Noto Sans', 16))
@@ -68,6 +72,8 @@ class MyApp(QWidget):
         age_layout.addWidget(age_label)
         age_layout.addWidget(self.age_combo)
         vbox.addLayout(age_layout)
+
+        vbox.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         # 버튼 레이아웃
         button_layout = QHBoxLayout()
