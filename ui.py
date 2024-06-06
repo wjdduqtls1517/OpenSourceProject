@@ -104,17 +104,12 @@ class MyApp(QWidget):
 
         vbox.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
-        # 버튼 레이아웃
+        # 다음 버튼 레이아웃
         button_layout = QHBoxLayout()
-        prev_button = QPushButton('이전', self)
-        prev_button.setFont(QFont('Noto Sans', 16))
-        prev_button.setFixedSize(100, 40)
-        prev_button.clicked.connect(self.prevPage)
         next_button = QPushButton('다음', self)
         next_button.setFont(QFont('Noto Sans', 16))
         next_button.setFixedSize(100, 40)
         next_button.clicked.connect(self.nextPage)
-        button_layout.addWidget(prev_button, alignment=Qt.AlignLeft)
         button_layout.addWidget(next_button, alignment=Qt.AlignRight)
         vbox.addLayout(button_layout)
 
@@ -134,10 +129,7 @@ class MyApp(QWidget):
         # 질병 체크박스 레이아웃
         disease_layout = QGridLayout()
         disease_layout.setSpacing(10)  # 간격을 조정
-
-        # 수정된 부분: 각 행의 크기를 늘림
-        for i in range(5):
-            disease_layout.setRowStretch(i, 1)
+        disease_layout.setVerticalSpacing(50)  # 행 간격을 매우 넓힘
 
         self.diseases = [
             '간질환', '갑상선', '고혈압', '골다공증', '관절염', '노인성빈혈',
@@ -168,7 +160,6 @@ class MyApp(QWidget):
         prev_button.clicked.connect(self.prevPage)
         next_button = QPushButton('다음', self)
         next_button.setFont(QFont('Noto Sans', 14))
-
         next_button.setFixedSize(100, 40)
         next_button.clicked.connect(self.nextPage)
         button_layout.addWidget(prev_button, alignment=Qt.AlignLeft)
@@ -207,8 +198,17 @@ class MyApp(QWidget):
         # 알아보기 버튼
         learn_more_button = QPushButton('알아보기', self)
         learn_more_button.setFont(QFont('Noto Sans', 14))
-        learn_more_button.setFixedSize(100, 40)
-        # 수정된 부분: 버튼 크기 조정
+        learn_more_button.setStyleSheet("""
+            QPushButton {
+                background-color: #007BFF;
+                color: white;
+                border-radius: 5px;
+                padding: 10px;
+            }
+            QPushButton:hover {
+                background-color: #0056b3;
+            }
+        """)
         learn_more_button.setFixedSize(learn_more_button.sizeHint())
         my_disease_box.addWidget(learn_more_button, alignment=Qt.AlignRight)
 
@@ -233,8 +233,17 @@ class MyApp(QWidget):
         # 더 알아보기 버튼
         learn_more_caution_button = QPushButton('알아보기', self)
         learn_more_caution_button.setFont(QFont('Noto Sans', 14))
-        learn_more_caution_button.setFixedSize(120, 40)
-        # 수정된 부분: 버튼 크기 조정
+        learn_more_caution_button.setStyleSheet("""
+            QPushButton {
+                background-color: #007BFF;
+                color: white;
+                border-radius: 5px;
+                padding: 10px;
+            }
+            QPushButton:hover {
+                background-color: #0056b3;
+            }
+        """)
         learn_more_caution_button.setFixedSize(learn_more_caution_button.sizeHint())
         caution_disease_box.addWidget(learn_more_caution_button, alignment=Qt.AlignRight)
 
@@ -308,3 +317,4 @@ if __name__ == '__main__':
     ex = MyApp()
     ex.show()
     sys.exit(app.exec_())
+
