@@ -2,7 +2,7 @@ import sys
 import os
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxLayout, QRadioButton, QComboBox, QCheckBox, \
     QGridLayout, QPushButton, QDesktopWidget, QStackedWidget, QFrame, QTextEdit, QSpacerItem, QSizePolicy
-from PyQt5.QtGui import QFont
+from PyQt5.QtGui import QFont, QColor
 from PyQt5.QtCore import Qt
 
 
@@ -33,6 +33,13 @@ class MyApp(QWidget):
         main_layout = QVBoxLayout()
         main_layout.addWidget(self.stack)
         self.setLayout(main_layout)
+
+        # 전체적인 스타일 설정
+        self.setStyleSheet("""
+            QWidget {
+                background-color: #f0f0f0;
+            
+        """)
 
     def initFirstPage(self):
         vbox = QVBoxLayout()
@@ -163,6 +170,7 @@ class MyApp(QWidget):
         my_disease_frame = QFrame(self)
         my_disease_frame.setLayout(my_disease_box)
         my_disease_frame.setFrameShape(QFrame.Box)
+        my_disease_frame.setStyleSheet("QFrame {background-color: white; border: 1px solid #ccc;}")
         vbox.addWidget(my_disease_frame)
 
         # 알아보기 버튼
@@ -187,6 +195,7 @@ class MyApp(QWidget):
         caution_disease_frame = QFrame(self)
         caution_disease_frame.setLayout(caution_disease_box)
         caution_disease_frame.setFrameShape(QFrame.Box)
+        caution_disease_frame.setStyleSheet("QFrame {background-color: white; border: 1px solid #ccc;}")
         vbox.addWidget(caution_disease_frame)
 
         # 더 알아보기 버튼
