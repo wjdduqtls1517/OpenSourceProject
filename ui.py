@@ -51,6 +51,10 @@ class MyApp(QWidget):
             QPushButton:hover {
                 background-color: #0056b3;
             }
+            QComboBox {
+                background-color: white;
+                padding: 5px;
+            }
         """)
 
     def initFirstPage(self):
