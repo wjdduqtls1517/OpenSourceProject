@@ -42,6 +42,15 @@ class MyApp(QWidget):
             QLabel {
                 color: #333;
             }
+            QPushButton {
+                background-color: #007BFF;
+                color: white;
+                border-radius: 5px;
+                padding: 10px;
+            }
+            QPushButton:hover {
+                background-color: #0056b3;
+            }
         """)
 
     def initFirstPage(self):
