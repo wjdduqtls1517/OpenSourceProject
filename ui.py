@@ -1,8 +1,9 @@
 import sys
+import os
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxLayout, QRadioButton, QComboBox, QCheckBox, \
-    QGridLayout, QPushButton, QDesktopWidget, QStackedWidget, QFrame, QTextEdit
+    QGridLayout, QPushButton, QDesktopWidget, QStackedWidget, QFrame, QTextEdit, QSpacerItem, QSizePolicy
 from PyQt5.QtGui import QFont
-from PyQt5.QtCore import Qt
+from PyQt5.QtCore import Qt, QSize
 
 
 class MyApp(QWidget):
@@ -33,6 +34,35 @@ class MyApp(QWidget):
         main_layout.addWidget(self.stack)
         self.setLayout(main_layout)
 
+        self.setStyleSheet("""
+            QWidget {
+                background-color: #f0f0f0;
+            }
+            QLabel {
+                color: #333;
+            }
+            QPushButton {
+                background-color: #007BFF;
+                color: white;
+                border-radius: 5px;
+                padding: 10px;
+            }
+            QPushButton:hover {
+                background-color: #0056b3;
+            }
+            QComboBox {
+                background-color: white;
+                padding: 5px;
+            }
+            QTextEdit {
+                background-color: white;
+                border: 1px solid #ccc;
+            }
+            QCheckBox {
+                background-color: #f0f0f0;
+            }
+        """)
+
     def initFirstPage(self):
         vbox = QVBoxLayout()
 
@@ -42,40 +72,46 @@ class MyApp(QWidget):
         title.setAlignment(Qt.AlignCenter)
         vbox.addWidget(title)
 
+        vbox.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
         # 성별 라디오 버튼
         gender_layout = QHBoxLayout()
-        gender_label = QLabel('성별', self)
-        gender_label.setFont(QFont('Noto Sans', 14))
+        gender_label = QLabel('성별을 선택해 주세요.', self)
+        gender_label.setFont(QFont('Noto Sans', 16))
         gender_layout.addWidget(gender_label)
 
         self.male_radio = QRadioButton('남자', self)
-        self.male_radio.setFont(QFont('Noto Sans', 14))
+        self.male_radio.setFont(QFont('Noto Sans', 16))
         self.female_radio = QRadioButton('여자', self)
-        self.female_radio.setFont(QFont('Noto Sans', 14))
+        self.female_radio.setFont(QFont('Noto Sans', 16))
         gender_layout.addWidget(self.male_radio)
         gender_layout.addWidget(self.female_radio)
         vbox.addLayout(gender_layout)
 
+        vbox.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
         # 나이 콤보박스
         age_layout = QHBoxLayout()
-        age_label = QLabel('나이', self)
-        age_label.setFont(QFont('Noto Sans', 14))
+        age_label = QLabel('나이를 선택해 주세요.', self)
+        age_label.setFont(QFont('Noto Sans', 16))
         self.age_combo = QComboBox(self)
-        self.age_combo.setFont(QFont('Noto Sans', 14))
+        self.age_combo.setFont(QFont('Noto Sans', 16))
         self.age_combo.addItem('선택 안함')
         self.age_combo.addItems([f'{i}대' for i in range(60, 90, 10)])
         age_layout.addWidget(age_label)
         age_layout.addWidget(self.age_combo)
         vbox.addLayout(age_layout)
 
+        vbox.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
         # 버튼 레이아웃
         button_layout = QHBoxLayout()
         prev_button = QPushButton('이전', self)
-        prev_button.setFont(QFont('Noto Sans', 14))
+        prev_button.setFont(QFont('Noto Sans', 16))
         prev_button.setFixedSize(100, 40)
         prev_button.clicked.connect(self.prevPage)
         next_button = QPushButton('다음', self)
-        next_button.setFont(QFont('Noto Sans', 14))
+        next_button.setFont(QFont('Noto Sans', 16))
         next_button.setFixedSize(100, 40)
         next_button.clicked.connect(self.nextPage)
         button_layout.addWidget(prev_button, alignment=Qt.AlignLeft)
@@ -93,32 +129,36 @@ class MyApp(QWidget):
         title.setAlignment(Qt.AlignCenter)
         vbox.addWidget(title)
 
+        vbox.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
         # 질병 체크박스 레이아웃
         disease_layout = QGridLayout()
+        disease_layout.setSpacing(10)  # 간격을 조정
+
+        # 수정된 부분: 각 행의 크기를 늘림
+        for i in range(5):
+            disease_layout.setRowStretch(i, 1)
+
         self.diseases = [
             '간질환', '갑상선', '고혈압', '골다공증', '관절염', '노인성빈혈',
             '노인성우울증', '녹내장', '뇌동맥류', '뇌졸증', '당뇨병', '동맥경화증',
             '변비', '파킨슨병', '신장병', '오십견', '요통', '위장병', '치매',
             '통풍', '퇴행성근골격장애'
         ]
-        self.disease_info = [
-            '간질환 정보', '갑상선 정보', '고혈압 정보', '골다공증 정보', '관절염 정보',
-            '노인성빈혈 정보', '노인성우울증 정보', '녹내장 정보', '뇌동맥류 정보', '뇌졸증 정보',
-            '당뇨병 정보', '동맥경화증 정보', '변비 정보', '파킨슨병 정보', '신장병 정보',
-            '오십견 정보', '요통 정보', '위장병 정보', '치매 정보', '통풍 정보',
-            '퇴행성근골격장애 정보'
-        ]
 
         self.disease_checkboxes = []
         for i, disease in enumerate(self.diseases):
             checkbox = QCheckBox(disease, self)
-            checkbox.setFont(QFont('Noto Sans', 14))
-            checkbox.setToolTip(self.disease_info[i])
+            checkbox.setFont(QFont('Noto Sans', 16))
+            tooltip_text = self.readDiseaseInfo(os.path.join('diseases', '증상', f'{disease}_증상.txt'))
+            checkbox.setToolTip(tooltip_text)
             row = i // 7
             col = i % 7
             disease_layout.addWidget(checkbox, row, col)
             self.disease_checkboxes.append(checkbox)
         vbox.addLayout(disease_layout)
+
+        vbox.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
 
         # 버튼 레이아웃
         button_layout = QHBoxLayout()
@@ -128,6 +168,7 @@ class MyApp(QWidget):
         prev_button.clicked.connect(self.prevPage)
         next_button = QPushButton('다음', self)
         next_button.setFont(QFont('Noto Sans', 14))
+
         next_button.setFixedSize(100, 40)
         next_button.clicked.connect(self.nextPage)
         button_layout.addWidget(prev_button, alignment=Qt.AlignLeft)
@@ -167,6 +208,8 @@ class MyApp(QWidget):
         learn_more_button = QPushButton('알아보기', self)
         learn_more_button.setFont(QFont('Noto Sans', 14))
         learn_more_button.setFixedSize(100, 40)
+        # 수정된 부분: 버튼 크기 조정
+        learn_more_button.setFixedSize(learn_more_button.sizeHint())
         my_disease_box.addWidget(learn_more_button, alignment=Qt.AlignRight)
 
         # 조심해야 할 병 레이아웃
@@ -188,9 +231,11 @@ class MyApp(QWidget):
         vbox.addWidget(caution_disease_frame)
 
         # 더 알아보기 버튼
-        learn_more_caution_button = QPushButton('더 알아보기', self)
+        learn_more_caution_button = QPushButton('알아보기', self)
         learn_more_caution_button.setFont(QFont('Noto Sans', 14))
         learn_more_caution_button.setFixedSize(120, 40)
+        # 수정된 부분: 버튼 크기 조정
+        learn_more_caution_button.setFixedSize(learn_more_caution_button.sizeHint())
         caution_disease_box.addWidget(learn_more_caution_button, alignment=Qt.AlignRight)
 
         # 버튼 레이아웃
@@ -208,6 +253,13 @@ class MyApp(QWidget):
         vbox.addLayout(button_layout)
 
         self.third_page.setLayout(vbox)
+
+    def readDiseaseInfo(self, filepath):
+        try:
+            with open(filepath, 'r', encoding='utf-8') as file:
+                return file.read()
+        except Exception as e:
+            return f'파일을 읽는 중 오류가 발생했습니다: {e}'
 
     def prevPage(self):
         current_index = self.stack.currentIndex()
