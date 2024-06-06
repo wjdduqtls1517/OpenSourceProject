@@ -2,8 +2,8 @@ import sys
 import os
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxLayout, QRadioButton, QComboBox, QCheckBox, \
     QGridLayout, QPushButton, QDesktopWidget, QStackedWidget, QFrame, QTextEdit, QSpacerItem, QSizePolicy
-from PyQt5.QtGui import QFont, QColor
-from PyQt5.QtCore import Qt
+from PyQt5.QtGui import QFont
+from PyQt5.QtCore import Qt, QSize
 
 
 class MyApp(QWidget):
@@ -34,7 +34,6 @@ class MyApp(QWidget):
         main_layout.addWidget(self.stack)
         self.setLayout(main_layout)
 
-        # 전체적인 스타일 설정
         self.setStyleSheet("""
             QWidget {
                 background-color: #f0f0f0;
@@ -130,9 +129,16 @@ class MyApp(QWidget):
         title.setAlignment(Qt.AlignCenter)
         vbox.addWidget(title)
 
+        vbox.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
         # 질병 체크박스 레이아웃
         disease_layout = QGridLayout()
         disease_layout.setSpacing(10)  # 간격을 조정
+
+        # 수정된 부분: 각 행의 크기를 늘림
+        for i in range(5):
+            disease_layout.setRowStretch(i, 1)
+
         self.diseases = [
             '간질환', '갑상선', '고혈압', '골다공증', '관절염', '노인성빈혈',
             '노인성우울증', '녹내장', '뇌동맥류', '뇌졸증', '당뇨병', '동맥경화증',
@@ -152,6 +158,8 @@ class MyApp(QWidget):
             self.disease_checkboxes.append(checkbox)
         vbox.addLayout(disease_layout)
 
+        vbox.addSpacerItem(QSpacerItem(20, 40, QSizePolicy.Minimum, QSizePolicy.Expanding))
+
         # 버튼 레이아웃
         button_layout = QHBoxLayout()
         prev_button = QPushButton('이전', self)
@@ -160,6 +168,7 @@ class MyApp(QWidget):
         prev_button.clicked.connect(self.prevPage)
         next_button = QPushButton('다음', self)
         next_button.setFont(QFont('Noto Sans', 14))
+
         next_button.setFixedSize(100, 40)
         next_button.clicked.connect(self.nextPage)
         button_layout.addWidget(prev_button, alignment=Qt.AlignLeft)
@@ -193,13 +202,14 @@ class MyApp(QWidget):
         my_disease_frame = QFrame(self)
         my_disease_frame.setLayout(my_disease_box)
         my_disease_frame.setFrameShape(QFrame.Box)
-        my_disease_frame.setStyleSheet("QFrame {background-color: white; border: 1px solid #ccc;}")
         vbox.addWidget(my_disease_frame)
 
         # 알아보기 버튼
         learn_more_button = QPushButton('알아보기', self)
         learn_more_button.setFont(QFont('Noto Sans', 14))
         learn_more_button.setFixedSize(100, 40)
+        # 수정된 부분: 버튼 크기 조정
+        learn_more_button.setFixedSize(learn_more_button.sizeHint())
         my_disease_box.addWidget(learn_more_button, alignment=Qt.AlignRight)
 
         # 조심해야 할 병 레이아웃
@@ -218,13 +228,14 @@ class MyApp(QWidget):
         caution_disease_frame = QFrame(self)
         caution_disease_frame.setLayout(caution_disease_box)
         caution_disease_frame.setFrameShape(QFrame.Box)
-        caution_disease_frame.setStyleSheet("QFrame {background-color: white; border: 1px solid #ccc;}")
         vbox.addWidget(caution_disease_frame)
 
         # 더 알아보기 버튼
-        learn_more_caution_button = QPushButton('더 알아보기', self)
+        learn_more_caution_button = QPushButton('알아보기', self)
         learn_more_caution_button.setFont(QFont('Noto Sans', 14))
         learn_more_caution_button.setFixedSize(120, 40)
+        # 수정된 부분: 버튼 크기 조정
+        learn_more_caution_button.setFixedSize(learn_more_caution_button.sizeHint())
         caution_disease_box.addWidget(learn_more_caution_button, alignment=Qt.AlignRight)
 
         # 버튼 레이아웃
