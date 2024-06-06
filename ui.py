@@ -55,6 +55,10 @@ class MyApp(QWidget):
                 background-color: white;
                 padding: 5px;
             }
+            QTextEdit {
+                background-color: white;
+                border: 1px solid #ccc;
+            }
         """)
 
     def initFirstPage(self):
