@@ -38,7 +38,10 @@ class MyApp(QWidget):
         self.setStyleSheet("""
             QWidget {
                 background-color: #f0f0f0;
-            
+            }
+            QLabel {
+                color: #333;
+            }
         """)
 
     def initFirstPage(self):
