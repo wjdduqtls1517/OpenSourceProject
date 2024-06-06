@@ -59,6 +59,9 @@ class MyApp(QWidget):
                 background-color: white;
                 border: 1px solid #ccc;
             }
+            QCheckBox {
+                background-color: #f0f0f0;
+            }
         """)
 
     def initFirstPage(self):
