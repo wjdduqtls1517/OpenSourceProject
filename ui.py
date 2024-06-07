@@ -313,6 +313,9 @@ class MyApp(QWidget):
             self.caution_disease_buttons_layout = QVBoxLayout()
 
             scroll_area = QScrollArea()
+            scroll_area.setWidgetResizable(True)
+            scroll_content = QWidget()
+            scroll_content.setLayout(self.caution_disease_buttons_layout)
 
     def nextPage(self):
         current_index = self.stack.currentIndex()
