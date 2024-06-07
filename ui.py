@@ -324,6 +324,9 @@ class MyApp(QWidget):
             prev_button = QPushButton('이전', self)
             prev_button.setFont(QFont('Noto Sans', 14))
             prev_button.setFixedSize(100, 40)
+            prev_button.clicked.connect(self.prevPageFromFifth)
+            button_layout.addWidget(prev_button, alignment=Qt.AlignLeft)
+            vbox.addLayout(button_layout)
 
     def nextPage(self):
         current_index = self.stack.currentIndex()
