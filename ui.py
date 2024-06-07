@@ -286,6 +286,11 @@ class MyApp(QWidget):
         scroll_area.setWidgetResizable(True)
         scroll_content = QWidget()
         scroll_content.setLayout(self.disease_buttons_layout)
+        scroll_area.setWidget(scroll_content)
+        vbox.addWidget(scroll_area)
+
+        # 이전 버튼
+        button_layout = QHBoxLayout()
 
     def nextPage(self):
         current_index = self.stack.currentIndex()
