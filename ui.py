@@ -270,7 +270,7 @@ class MyApp(QWidget):
 
         self.third_page.setLayout(vbox)
 
-        initFourthPage(self):
+    def initFourthPage(self):
         vbox = QVBoxLayout()
 
         # 제목 라벨
@@ -300,7 +300,7 @@ class MyApp(QWidget):
 
         self.fourth_page.setLayout(vbox)
 
-        def initFifthPage(self):
+    def initFifthPage(self):
             vbox = QVBoxLayout()
 
             # 제목 라벨
@@ -333,8 +333,7 @@ class MyApp(QWidget):
     def showFourthPage(self):
 
             # 네 번째 페이지로 이동하기 전에 질병 버튼 생성
-            for i in
-                reversed(range(self.disease_buttons_layout.count())):
+        for i in reversed(range(self.disease_buttons_layout.count())):
                 self.disease_buttons_layout.itemAt(i).widget().setParent(None)
 
                 selected_diseases = [checkbox.text()
@@ -354,18 +353,16 @@ class MyApp(QWidget):
                 for i in reversed(range(self.caution_disease_buttons_layout.count())):
                     self.caution_disease_buttons_layout.itemAt(i).widget().setParent(None)
                 # 조심해야 할 질병 목록 생성
+                selected_diseases = [checkbox.text() for checkbox in self.disease_checkboxes if checkbox.isChecked()]
+                caution_diseases = selected_diseases[1:] if len(selected_diseases) > 1 else []
 
-    selected_diseases = [checkbox.text() for checkbox in self.disease_checkboxes if checkbox.isChecked()]
-    caution_diseases = selected_diseases[1:] if len(selected_diseases) > 1 else []
+                for disease in caution_diseases: button = QPushButton(disease, self)
+                button.setFont(QFont('Noto Sans', 14))
+                button.setFixedSize(200, 40)
+                button.clicked.connect(lambda checked, d=disease: self.showDiseaseInfo(d))
+                self.caution_disease_buttons_layout.addWidget(button)
 
-    for disease in caution_diseases:
-        button = QPushButton(disease, self)
-    button.setFont(QFont('Noto Sans', 14))
-    button.setFixedSize(200, 40)
-    button.clicked.connect(lambda checked, d=disease: self.showDiseaseInfo(d))
-    self.caution_disease_buttons_layout.addWidget(button)
-
-    self.stack.setCurrentIndex(4)
+                self.stack.setCurrentIndex(4)
 
 
 
