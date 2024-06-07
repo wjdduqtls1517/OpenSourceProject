@@ -422,8 +422,9 @@ class MyApp(QWidget):
         with open(file_path, 'r', encoding='utf-8') as file:
             return file.read()
 
-    def learnMore(self):
-        QMessageBox.information(self, '질병 정보', '선택한 질병에 대한 더 많은 정보를 표시합니다.')
+    def showDiseaseInfo(self, disease):
+        info = self.readDiseaseInfo(os.path.join('diseases', '정보', f'{disease}_정보.txt'))
+        QMessageBox.information(self, '질병 정보', info)
 
     def learnMoreCaution(self):
         QMessageBox.information(self, '조심해야 할 병 정보', '조심해야 할 병에 대한 더 많은 정보를 표시합니다.')
@@ -431,6 +432,8 @@ class MyApp(QWidget):
     def finishApp(self):
         QMessageBox.information(self, '완료', '애플리케이션을 종료합니다.')
         self.close()
+
+
 
     def center(self):
         qr = self.frameGeometry()
