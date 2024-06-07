@@ -1,4 +1,7 @@
+<<<<<<< HEAD
 
+=======
+>>>>>>> origin/feature_knowhowreal
 import sys
 from PyQt5.QtWidgets import (QApplication, QWidget, QLabel, QLineEdit, QPushButton,
                              QVBoxLayout, QHBoxLayout, QDesktopWidget, QTextEdit, QDialog)
@@ -16,7 +19,10 @@ class InputDialog(QDialog):
         confirm_button.clicked.connect(self.accept)
         layout.addWidget(confirm_button)
         self.setLayout(layout)
+<<<<<<< HEAD
  if __name__ == '__main__':
     app = QApplication(sys.argv)
     ex = QuestionWindow()
     sys.exit(app.exec_())
+=======
+>>>>>>> origin/feature_knowhowreal
