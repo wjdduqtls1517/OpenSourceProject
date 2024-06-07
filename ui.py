@@ -321,6 +321,9 @@ class MyApp(QWidget):
 
             # 이전 버튼
             button_layout = QHBoxLayout()
+            prev_button = QPushButton('이전', self)
+            prev_button.setFont(QFont('Noto Sans', 14))
+            prev_button.setFixedSize(100, 40)
 
     def nextPage(self):
         current_index = self.stack.currentIndex()
