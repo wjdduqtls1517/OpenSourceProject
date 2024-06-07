@@ -1,7 +1,7 @@
 import sys
 import os
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxLayout, QRadioButton, QComboBox, QCheckBox, \
-    QGridLayout, QPushButton, QDesktopWidget, QStackedWidget, QFrame, QTextEdit, QSpacerItem, QSizePolicy
+    QGridLayout, QPushButton, QDesktopWidget, QStackedWidget, QFrame, QTextEdit, QSpacerItem, QSizePolicy, QMessageBox
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt, QSize
 
@@ -144,8 +144,8 @@ class MyApp(QWidget):
             checkbox.setFont(QFont('Noto Sans', 16))
             tooltip_text = self.readDiseaseInfo(os.path.join('diseases', '증상', f'{disease}_증상.txt'))
             checkbox.setToolTip(tooltip_text)
-            row = i // 7
-            col = i % 7
+            row = i // 3  # 세로로 3개씩 배치
+            col = i % 3  # 가로로 3개씩 배치
             disease_layout.addWidget(checkbox, row, col)
             self.disease_checkboxes.append(checkbox)
         vbox.addLayout(disease_layout)
@@ -253,63 +253,57 @@ class MyApp(QWidget):
         prev_button.setFont(QFont('Noto Sans', 14))
         prev_button.setFixedSize(100, 40)
         prev_button.clicked.connect(self.prevPage)
-        next_button = QPushButton('다음', self)
+        next_button = QPushButton('완료', self)  # 완료 버튼으로 변경
         next_button.setFont(QFont('Noto Sans', 14))
         next_button.setFixedSize(100, 40)
-        next_button.clicked.connect(self.nextPage)
+        next_button.clicked.connect(self.displayUserInfo)
         button_layout.addWidget(prev_button, alignment=Qt.AlignLeft)
         button_layout.addWidget(next_button, alignment=Qt.AlignRight)
         vbox.addLayout(button_layout)
 
         self.third_page.setLayout(vbox)
 
-    def readDiseaseInfo(self, filepath):
-        try:
-            with open(filepath, 'r', encoding='utf-8') as file:
-                return file.read()
-        except Exception as e:
-            return f'파일을 읽는 중 오류가 발생했습니다: {e}'
+    def nextPage(self):
+        current_index = self.stack.currentIndex()
+        if current_index == 0:
+            # 첫 번째 페이지 유효성 검사
+            if not self.male_radio.isChecked() and not self.female_radio.isChecked():
+                QMessageBox.warning(self, '입력 오류', '성별을 선택해 주세요.')
+                return
+
 
     def prevPage(self):
         current_index = self.stack.currentIndex()
         if current_index > 0:
             self.stack.setCurrentIndex(current_index - 1)
 
-    def nextPage(self):
-        current_index = self.stack.currentIndex()
-        if current_index == 0:
-            self.updateUserInfo()
-        elif current_index == 1:
-            self.updateThirdPage()
-        if current_index < self.stack.count() - 1:
-            self.stack.setCurrentIndex(current_index + 1)
+    def displayUserInfo(self):
+        # 사용자 정보 표시
+        gender = '남자' if self.male_radio.isChecked() else '여자'
+        age = self.age_combo.currentText()
+        self.user_info_label.setText(f'성별: {gender}, 나이: {age}')
+
+        # 선택한 질병 목록 표시
+        selected_diseases = [checkbox.text() for checkbox in self.disease_checkboxes if checkbox.isChecked()]
+        self.my_disease_list.setText('\n'.join(selected_diseases))
+
+        # 조심해야 할 병 (예시로 두 번째 질병을 표시)
+        if len(selected_diseases) > 1:
+            self.caution_disease_list.setText(selected_diseases[1])
+        else:
+            self.caution_disease_list.clear()
+
+    def readDiseaseInfo(self, file_path):
+        if not os.path.exists(file_path):
+            return ''
+        with open(file_path, 'r', encoding='utf-8') as file:
+            return file.read()
 
     def center(self):
         qr = self.frameGeometry()
         cp = QDesktopWidget().availableGeometry().center()
         qr.moveCenter(cp)
         self.move(qr.topLeft())
-
-    def updateUserInfo(self):
-        gender = '남자' if self.male_radio.isChecked() else '여자' if self.female_radio.isChecked() else '성별 없음'
-        age = self.age_combo.currentText()
-        self.user_info_label.setText(f'성별: {gender}, 나이: {age}')
-
-    def updateThirdPage(self):
-        selected_diseases = [checkbox.text() for checkbox in self.disease_checkboxes if checkbox.isChecked()]
-        self.my_disease_list.setText('\n'.join(selected_diseases))
-
-        age = self.age_combo.currentText()
-        if age == '60대':
-            caution_diseases = self.diseases[:5]
-        elif age == '70대':
-            caution_diseases = self.diseases[5:10]
-        elif age == '80대':
-            caution_diseases = self.diseases[10:15]
-        else:
-            caution_diseases = []
-
-        self.caution_disease_list.setText('\n'.join(caution_diseases))
 
 
 if __name__ == '__main__':
