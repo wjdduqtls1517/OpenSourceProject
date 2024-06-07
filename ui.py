@@ -277,6 +277,12 @@ class MyApp(QWidget):
         title = QLabel('질병 정보', self)
         title.setFont(QFont('Noto Sans', 30, QFont.Bold))
         title.setAlignment(Qt.AlignCenter)
+        vbox.addWidget(title)
+
+        # 질병 버튼 레이아웃
+        self.disease_buttons_layout = QVBoxLayout()
+
+        scroll_area = QScrollArea()
 
     def nextPage(self):
         current_index = self.stack.currentIndex()
