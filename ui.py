@@ -353,6 +353,10 @@ class MyApp(QWidget):
                 # 다섯 번째 페이지로 이동하기 전에 조심해야 할 병 버튼 생성
                 for i in reversed(range(self.caution_disease_buttons_layout.count())):
                     self.caution_disease_buttons_layout.itemAt(i).widget().setParent(None)
+                # 조심해야 할 질병 목록 생성
+
+    selected_diseases = [checkbox.text() for checkbox in self.disease_checkboxes if checkbox.isChecked()]
+    caution_diseases = selected_diseases[1:] if len(selected_diseases) > 1 else []
 
     def nextPage(self):
         current_index = self.stack.currentIndex()
