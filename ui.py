@@ -334,6 +334,10 @@ class MyApp(QWidget):
 
             # 네 번째 페이지로 이동하기 전에 질병 버튼 생성
             for i in
+                reversed(range(self.disease_buttons_layout.count())):
+                self.disease_buttons_layout.itemAt(i).widget().setParent(None)
+
+                selected_diseases = [checkbox.text()
 
     def nextPage(self):
         current_index = self.stack.currentIndex()
