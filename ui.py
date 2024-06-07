@@ -1,7 +1,7 @@
 import sys
 import os
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxLayout, QRadioButton, QComboBox, QCheckBox, \
-    QGridLayout, QPushButton, QDesktopWidget, QStackedWidget, QFrame, QTextEdit, QSpacerItem, QSizePolicy, QMessageBox
+    QGridLayout, QPushButton, QDesktopWidget, QStackedWidget, QFrame, QTextEdit, QSpacerItem, QSizePolicy, QMessageBox, QScrollArea
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt, QSize
 
@@ -21,6 +21,8 @@ class MyApp(QWidget):
         self.first_page = QWidget()
         self.second_page = QWidget()
         self.third_page = QWidget()
+        self.fourth_page = QWidget()
+        self.fifth_page = QWidget()
 
         self.initFirstPage()
         self.initSecondPage()
@@ -210,6 +212,7 @@ class MyApp(QWidget):
             }
         """)
         learn_more_button.setFixedSize(learn_more_button.sizeHint())
+        learn_more_button.clicked.connect(self.learnMore)
         my_disease_box.addWidget(learn_more_button, alignment=Qt.AlignRight)
 
         # 조심해야 할 병 레이아웃
@@ -245,6 +248,7 @@ class MyApp(QWidget):
             }
         """)
         learn_more_caution_button.setFixedSize(learn_more_caution_button.sizeHint())
+        learn_more_caution_button.clicked.connect(self.learnMoreCaution)
         caution_disease_box.addWidget(learn_more_caution_button, alignment=Qt.AlignRight)
 
         # 버튼 레이아웃
@@ -256,7 +260,7 @@ class MyApp(QWidget):
         next_button = QPushButton('완료', self)  # 완료 버튼으로 변경
         next_button.setFont(QFont('Noto Sans', 14))
         next_button.setFixedSize(100, 40)
-        next_button.clicked.connect(self.displayUserInfo)
+        next_button.clicked.connect(self.finishApp)
         button_layout.addWidget(prev_button, alignment=Qt.AlignLeft)
         button_layout.addWidget(next_button, alignment=Qt.AlignRight)
         vbox.addLayout(button_layout)
@@ -310,6 +314,16 @@ class MyApp(QWidget):
         with open(file_path, 'r', encoding='utf-8') as file:
             return file.read()
 
+    def learnMore(self):
+        QMessageBox.information(self, '질병 정보', '선택한 질병에 대한 더 많은 정보를 표시합니다.')
+
+    def learnMoreCaution(self):
+        QMessageBox.information(self, '조심해야 할 병 정보', '조심해야 할 병에 대한 더 많은 정보를 표시합니다.')
+
+    def finishApp(self):
+        QMessageBox.information(self, '완료', '애플리케이션을 종료합니다.')
+        self.close()
+
     def center(self):
         qr = self.frameGeometry()
         cp = QDesktopWidget().availableGeometry().center()
@@ -322,4 +336,3 @@ if __name__ == '__main__':
     ex = MyApp()
     ex.show()
     sys.exit(app.exec_())
-
