@@ -346,6 +346,14 @@ class MyApp(QWidget):
                 button.clicked.connect(lambda checked, d=disease: self.showDiseaseInfo(d))
                 self.disease_buttons_layout.addWidget(button)
 
+                self.stack.setCurrentIndex(3)
+
+    def showFifthPage(self):
+
+                # 다섯 번째 페이지로 이동하기 전에 조심해야 할 병 버튼 생성
+                for i in reversed(range(self.caution_disease_buttons_layout.count())):
+                    self.caution_disease_buttons_layout.itemAt(i).widget().setParent(None)
+
     def nextPage(self):
         current_index = self.stack.currentIndex()
         if current_index == 0:
