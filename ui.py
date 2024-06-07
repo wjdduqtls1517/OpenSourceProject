@@ -328,6 +328,13 @@ class MyApp(QWidget):
             button_layout.addWidget(prev_button, alignment=Qt.AlignLeft)
             vbox.addLayout(button_layout)
 
+            self.fifth_page.setLayout(vbox)
+
+    def showFourthPage(self):
+
+            # 네 번째 페이지로 이동하기 전에 질병 버튼 생성
+            for i in
+
     def nextPage(self):
         current_index = self.stack.currentIndex()
         if current_index == 0:
