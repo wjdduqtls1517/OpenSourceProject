@@ -298,6 +298,11 @@ class MyApp(QWidget):
         button_layout.addWidget(prev_button, alignment=Qt.AlignLeft)
         vbox.addLayout(button_layout)
 
+        self.fourth_page.setLayout(vbox)
+
+        def initFifthPage(self):
+            vbox = QVBoxLayout()
+
     def nextPage(self):
         current_index = self.stack.currentIndex()
         if current_index == 0:
