@@ -358,6 +358,10 @@ class MyApp(QWidget):
     selected_diseases = [checkbox.text() for checkbox in self.disease_checkboxes if checkbox.isChecked()]
     caution_diseases = selected_diseases[1:] if len(selected_diseases) > 1 else []
 
+    for disease in caution_diseases:
+        button = QPushButton(disease, self)
+    button.setFont(QFont('Noto Sans', 14))
+
     def nextPage(self):
         current_index = self.stack.currentIndex()
         if current_index == 0:
