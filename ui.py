@@ -273,6 +273,11 @@ class MyApp(QWidget):
         initFourthPage(self):
         vbox = QVBoxLayout()
 
+        # 제목 라벨
+        title = QLabel('질병 정보', self)
+        title.setFont(QFont('Noto Sans', 30, QFont.Bold))
+        title.setAlignment(Qt.AlignCenter)
+
     def nextPage(self):
         current_index = self.stack.currentIndex()
         if current_index == 0:
