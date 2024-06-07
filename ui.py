@@ -33,6 +33,8 @@ class MyApp(QWidget):
         self.stack.addWidget(self.first_page)
         self.stack.addWidget(self.second_page)
         self.stack.addWidget(self.third_page)
+        self.stack.addWidget(self.fourth_page)
+        self.stack.addWidget(self.fifth_page)
 
         main_layout = QVBoxLayout()
         main_layout.addWidget(self.stack)
