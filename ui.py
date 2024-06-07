@@ -361,6 +361,13 @@ class MyApp(QWidget):
     for disease in caution_diseases:
         button = QPushButton(disease, self)
     button.setFont(QFont('Noto Sans', 14))
+    button.setFixedSize(200, 40)
+    button.clicked.connect(lambda checked, d=disease: self.showDiseaseInfo(d))
+    self.caution_disease_buttons_layout.addWidget(button)
+
+    self.stack.setCurrentIndex(4)
+
+
 
     def nextPage(self):
         current_index = self.stack.currentIndex()
@@ -386,6 +393,12 @@ class MyApp(QWidget):
         current_index = self.stack.currentIndex()
         if current_index > 0:
             self.stack.setCurrentIndex(current_index - 1)
+
+    def prevPageFromFourth(self):
+        self.stack.setCurrentIndex(2)
+
+    def prevPageFromFifth(self):
+        self.stack.setCurrentIndex(2)
 
     def displayUserInfo(self):
         # 사용자 정보 표시
