@@ -342,6 +342,9 @@ class MyApp(QWidget):
                 for disease in selected_diseases:
                     button = QPushButton(disease, self)
                 button.setFont(QFont('Noto Sans', 14))
+                button.setFixedSize(200, 40)
+                button.clicked.connect(lambda checked, d=disease: self.showDiseaseInfo(d))
+                self.disease_buttons_layout.addWidget(button)
 
     def nextPage(self):
         current_index = self.stack.currentIndex()
