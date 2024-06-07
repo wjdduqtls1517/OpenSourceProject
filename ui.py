@@ -412,6 +412,21 @@ class MyApp(QWidget):
         selected_diseases = [checkbox.text() for checkbox in self.disease_checkboxes if checkbox.isChecked()]
         self.my_disease_list.setText('\n'.join(selected_diseases))
 
+        caution_diseases = [
+            '노년백내장', '추간판장애', '무릎관절증'
+        ] if self.age_combo.currentText() == '60대' else [
+            '노년백내장', '무릎관절증', '척추병증'
+        ] if self.age_combo.currentText() == '70대' else [
+            '치매', '폐렴', '노년백내장'
+        ]
+
+        for disease in caution_diseases:
+            button = QPushButton(disease, self)
+        button.setFont(QFont('Noto Sans', 14))
+        button.setFixedSize(200, 40)
+        button.clicked.connect(lambda checked, d=disease: self.showDiseaseInfo(d))
+        self.caution_disease_buttons_layout.addWidget(button)
+
         # 조심해야 할 병 (예시로 두 번째 질병을 표시)
         caution_disease = ''
         if len(selected_diseases) > 1:
