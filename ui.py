@@ -1,7 +1,7 @@
 import sys
 import os
 from PyQt5.QtWidgets import QApplication, QWidget, QLabel, QVBoxLayout, QHBoxLayout, QRadioButton, QComboBox, QCheckBox, \
-    QGridLayout, QPushButton, QDesktopWidget, QStackedWidget, QFrame, QTextEdit, QSpacerItem, QSizePolicy, QMessageBox
+    QGridLayout, QPushButton, QDesktopWidget, QStackedWidget, QFrame, QTextEdit, QSpacerItem, QSizePolicy, QMessageBox, QScrollArea
 from PyQt5.QtGui import QFont
 from PyQt5.QtCore import Qt, QSize
 
@@ -21,14 +21,20 @@ class MyApp(QWidget):
         self.first_page = QWidget()
         self.second_page = QWidget()
         self.third_page = QWidget()
+        self.fourth_page = QWidget()
+        self.fifth_page = QWidget()
 
         self.initFirstPage()
         self.initSecondPage()
         self.initThirdPage()
+        self.initFourthPage()
+        self.initFifthPage()
 
         self.stack.addWidget(self.first_page)
         self.stack.addWidget(self.second_page)
         self.stack.addWidget(self.third_page)
+        self.stack.addWidget(self.fourth_page)
+        self.stack.addWidget(self.fifth_page)
 
         main_layout = QVBoxLayout()
         main_layout.addWidget(self.stack)
@@ -210,6 +216,7 @@ class MyApp(QWidget):
             }
         """)
         learn_more_button.setFixedSize(learn_more_button.sizeHint())
+        learn_more_button.clicked.connect(self.showFourthPage)
         my_disease_box.addWidget(learn_more_button, alignment=Qt.AlignRight)
 
         # 조심해야 할 병 레이아웃
@@ -245,6 +252,7 @@ class MyApp(QWidget):
             }
         """)
         learn_more_caution_button.setFixedSize(learn_more_caution_button.sizeHint())
+        learn_more_caution_button.clicked.connect(self.showFifthPage)
         caution_disease_box.addWidget(learn_more_caution_button, alignment=Qt.AlignRight)
 
         # 버튼 레이아웃
@@ -256,12 +264,108 @@ class MyApp(QWidget):
         next_button = QPushButton('완료', self)  # 완료 버튼으로 변경
         next_button.setFont(QFont('Noto Sans', 14))
         next_button.setFixedSize(100, 40)
-        next_button.clicked.connect(self.displayUserInfo)
+        next_button.clicked.connect(self.finishApp)
         button_layout.addWidget(prev_button, alignment=Qt.AlignLeft)
         button_layout.addWidget(next_button, alignment=Qt.AlignRight)
         vbox.addLayout(button_layout)
 
         self.third_page.setLayout(vbox)
+
+    def initFourthPage(self):
+        vbox = QVBoxLayout()
+
+        # 제목 라벨
+        title = QLabel('질병 정보', self)
+        title.setFont(QFont('Noto Sans', 30, QFont.Bold))
+        title.setAlignment(Qt.AlignCenter)
+        vbox.addWidget(title)
+
+        # 질병 버튼 레이아웃
+        self.disease_buttons_layout = QVBoxLayout()
+
+        scroll_area = QScrollArea()
+        scroll_area.setWidgetResizable(True)
+        scroll_content = QWidget()
+        scroll_content.setLayout(self.disease_buttons_layout)
+        scroll_area.setWidget(scroll_content)
+        vbox.addWidget(scroll_area)
+
+        # 이전 버튼
+        button_layout = QHBoxLayout()
+        prev_button = QPushButton('이전', self)
+        prev_button.setFont(QFont('Noto Sans', 14))
+        prev_button.setFixedSize(100, 40)
+        prev_button.clicked.connect(self.prevPageFromFourth)
+        button_layout.addWidget(prev_button, alignment=Qt.AlignLeft)
+        vbox.addLayout(button_layout)
+
+        self.fourth_page.setLayout(vbox)
+
+    def initFifthPage(self):
+        vbox = QVBoxLayout()
+
+        # 제목 라벨
+        title = QLabel('조심해야 할 병 정보', self)
+        title.setFont(QFont('Noto Sans', 30, QFont.Bold))
+        title.setAlignment(Qt.AlignCenter)
+        vbox.addWidget(title)
+
+        # 조심해야 할 병 버튼 레이아웃
+        self.caution_disease_buttons_layout = QVBoxLayout()
+
+        scroll_area = QScrollArea()
+        scroll_area.setWidgetResizable(True)
+        scroll_content = QWidget()
+        scroll_content.setLayout(self.caution_disease_buttons_layout)
+        scroll_area.setWidget(scroll_content)
+        vbox.addWidget(scroll_area)
+
+        # 이전 버튼
+        button_layout = QHBoxLayout()
+        prev_button = QPushButton('이전', self)
+        prev_button.setFont(QFont('Noto Sans', 14))
+        prev_button.setFixedSize(100, 40)
+        prev_button.clicked.connect(self.prevPageFromFifth)
+        button_layout.addWidget(prev_button, alignment=Qt.AlignLeft)
+        vbox.addLayout(button_layout)
+
+        self.fifth_page.setLayout(vbox)
+
+    def showFourthPage(self):
+
+        # 네 번째 페이지로 이동하기 전에 질병 버튼 생성
+        for i in reversed(range(self.disease_buttons_layout.count())):
+            self.disease_buttons_layout.itemAt(i).widget().setParent(None)
+
+        selected_diseases = [checkbox.text() for checkbox in self.disease_checkboxes if checkbox.isChecked()]
+        for disease in selected_diseases:
+            button = QPushButton(disease, self)
+            button.setFont(QFont('Noto Sans', 14))
+            button.setFixedSize(200, 40)
+            button.clicked.connect(lambda checked, d=disease: self.showDiseaseInfo(d))
+            self.disease_buttons_layout.addWidget(button)
+
+        self.stack.setCurrentIndex(3)
+
+    def showFifthPage(self):
+
+        # 다섯 번째 페이지로 이동하기 전에 조심해야 할 병 버튼 생성
+        for i in reversed(range(self.caution_disease_buttons_layout.count())):
+            self.caution_disease_buttons_layout.itemAt(i).widget().setParent(None)
+
+        # 조심해야 할 질병 목록 생성
+        selected_diseases = [checkbox.text() for checkbox in self.disease_checkboxes if checkbox.isChecked()]
+        caution_diseases = selected_diseases[1:] if len(selected_diseases) > 1 else []
+
+        for disease in caution_diseases: button = QPushButton(disease, self)
+        button.setFont(QFont('Noto Sans', 14))
+        button.setFixedSize(200, 40)
+        button.clicked.connect(lambda checked, d=disease: self.showDiseaseInfo(d))
+        self.caution_disease_buttons_layout.addWidget(button)
+
+        self.stack.setCurrentIndex(4)
+
+
 
     def nextPage(self):
         current_index = self.stack.currentIndex()
@@ -288,6 +392,12 @@ class MyApp(QWidget):
         if current_index > 0:
             self.stack.setCurrentIndex(current_index - 1)
 
+    def prevPageFromFourth(self):
+        self.stack.setCurrentIndex(2)
+
+    def prevPageFromFifth(self):
+        self.stack.setCurrentIndex(2)
+
     def displayUserInfo(self):
         # 사용자 정보 표시
         gender = '남자' if self.male_radio.isChecked() else '여자'
@@ -310,6 +420,16 @@ class MyApp(QWidget):
         with open(file_path, 'r', encoding='utf-8') as file:
             return file.read()
 
+    def showDiseaseInfo(self, disease):
+        info = self.readDiseaseInfo(os.path.join('diseases', '정보', f'{disease}_정보.txt'))
+        QMessageBox.information(self, '질병 정보', info)
+
+    def finishApp(self):
+        QMessageBox.information(self, '완료', '애플리케이션을 종료합니다.')
+        self.close()
+
+
+
     def center(self):
         qr = self.frameGeometry()
         cp = QDesktopWidget().availableGeometry().center()
@@ -322,4 +442,3 @@ if __name__ == '__main__':
     ex = MyApp()
     ex.show()
     sys.exit(app.exec_())
-
