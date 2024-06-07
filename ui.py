@@ -251,7 +251,7 @@ class MyApp(QWidget):
             }
         """)
         learn_more_caution_button.setFixedSize(learn_more_caution_button.sizeHint())
-        learn_more_caution_button.clicked.connect(self.learnMoreCaution)
+        learn_more_caution_button.clicked.connect(self.showFifthPage)
         caution_disease_box.addWidget(learn_more_caution_button, alignment=Qt.AlignRight)
 
         # 버튼 레이아웃
@@ -269,6 +269,9 @@ class MyApp(QWidget):
         vbox.addLayout(button_layout)
 
         self.third_page.setLayout(vbox)
+
+        initFourthPage(self):
+        vbox = QVBoxLayout()
 
     def nextPage(self):
         current_index = self.stack.currentIndex()
