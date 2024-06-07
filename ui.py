@@ -475,10 +475,12 @@ class MyApp(QWidget):
         with open(file_path, 'r', encoding='utf-8') as file:
             return file.read()
 
-
-
     def finishApp(self):
-        QMessageBox.information(self, '완료', '건강 정보 입력이 완료되었습니다.')
+        reply = QMessageBox.question(self, '종료 확인', '종료하시겠습니까?', QMessageBox.Yes | QMessageBox.No, QMessageBox.No)
+
+        if reply == QMessageBox.Yes:
+            # 사용자가 Yes를 선택한 경우에만 앱 종료
+            sys.exit(app.exec_())
 
 
     def center(self):
