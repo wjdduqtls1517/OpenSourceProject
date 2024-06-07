@@ -301,6 +301,42 @@ class MyApp(QWidget):
 
         self.fourth_page.setLayout(vbox)
 
+    def showDiseaseInfo(self, disease_name):
+        # 새로운 페이지 생성
+        disease_info_page = QWidget()
+
+        # 질병 정보 표시
+        disease_label = QLabel(disease_name, self)
+        disease_label.setFont(QFont('Noto Sans', 20))
+        disease_label.setAlignment(Qt.AlignCenter)
+
+        # 질병 정보 읽기
+        disease_info = self.readDiseaseInfo(os.path.join('diseases', '정의', f'{disease_name}.txt'))
+
+        # 질병 정보 텍스트 박스 생성
+        info_textbox = QTextEdit(self)
+        info_textbox.setFont(QFont('Noto Sans', 14))
+        info_textbox.setReadOnly(True)
+        info_textbox.setPlainText(disease_info)
+
+        # 이전 버튼 추가
+        back_button = QPushButton('이전', self)
+        back_button.setFont(QFont('Noto Sans', 14))
+        back_button.clicked.connect(lambda: self.stack.setCurrentWidget(self.fourth_page))
+
+        # 새로운 페이지 레이아웃 설정
+        layout = QVBoxLayout()
+        layout.addWidget(disease_label)
+        layout.addWidget(info_textbox)
+        layout.addWidget(back_button)
+        disease_info_page.setLayout(layout)
+
+        # 스택에 새로운 페이지 추가
+        self.stack.addWidget(disease_info_page)
+
+        # 스택에서 새로 추가된 페이지로 이동
+        self.stack.setCurrentWidget(disease_info_page)
+
     def initFifthPage(self):
         vbox = QVBoxLayout()
 
@@ -346,6 +382,8 @@ class MyApp(QWidget):
             self.disease_buttons_layout.addWidget(button)
 
         self.stack.setCurrentIndex(3)
+
+
 
     def showFifthPage(self):
 
@@ -427,11 +465,9 @@ class MyApp(QWidget):
         button.clicked.connect(lambda checked, d=disease: self.showDiseaseInfo(d))
         self.caution_disease_buttons_layout.addWidget(button)
 
-        # 조심해야 할 병 (예시로 두 번째 질병을 표시)
-        caution_disease = ''
-        if len(selected_diseases) > 1:
-            caution_disease = selected_diseases[1]
-        self.caution_disease_list.setText(caution_disease)
+        # 조심해야 할 질병 목록도 표시
+        self.caution_disease_list.setText('\n'.join(caution_diseases))
+
 
     def readDiseaseInfo(self, file_path):
         if not os.path.exists(file_path):
@@ -439,9 +475,7 @@ class MyApp(QWidget):
         with open(file_path, 'r', encoding='utf-8') as file:
             return file.read()
 
-    def showDiseaseInfo(self, disease):
-        info = self.readDiseaseInfo(os.path.join('diseases', '증상', f'{disease}_증상.txt'))
-        QMessageBox.information(self, f'{disease} 정보', info)
+
 
     def finishApp(self):
         QMessageBox.information(self, '완료', '건강 정보 입력이 완료되었습니다.')
