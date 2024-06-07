@@ -270,7 +270,9 @@ class MyApp(QWidget):
             if not self.male_radio.isChecked() and not self.female_radio.isChecked():
                 QMessageBox.warning(self, '입력 오류', '성별을 선택해 주세요.')
                 return
-
+            if self.age_combo.currentText() == '선택 안함':
+                QMessageBox.warning(self, '입력 오류', '나이를 선택해 주세요.')
+                return
 
     def prevPage(self):
         current_index = self.stack.currentIndex()
