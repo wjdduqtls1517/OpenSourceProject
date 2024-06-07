@@ -27,6 +27,8 @@ class MyApp(QWidget):
         self.initFirstPage()
         self.initSecondPage()
         self.initThirdPage()
+        self.initFourthPage()
+        self.initFifthPage()
 
         self.stack.addWidget(self.first_page)
         self.stack.addWidget(self.second_page)
@@ -212,7 +214,8 @@ class MyApp(QWidget):
             }
         """)
         learn_more_button.setFixedSize(learn_more_button.sizeHint())
-        learn_more_button.clicked.connect(self.learnMore)
+        learn_more_button.clicked.connect(self.showFourthPage)
+
         my_disease_box.addWidget(learn_more_button, alignment=Qt.AlignRight)
 
         # 조심해야 할 병 레이아웃
