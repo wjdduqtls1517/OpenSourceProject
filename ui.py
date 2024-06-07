@@ -310,7 +310,14 @@ class MyApp(QWidget):
         disease_label.setFont(QFont('Noto Sans', 20))
         disease_label.setAlignment(Qt.AlignCenter)
 
-        # 여기에 질병에 대한 자세한 정보를 표시하는 위젯을 추가하면 됩니다.
+        # 질병 정보 읽기
+        disease_info = self.readDiseaseInfo(os.path.join('diseases', '정의', f'{disease_name}.txt'))
+
+        # 질병 정보 텍스트 박스 생성
+        info_textbox = QTextEdit(self)
+        info_textbox.setFont(QFont('Noto Sans', 14))
+        info_textbox.setReadOnly(True)
+        info_textbox.setPlainText(disease_info)
 
         # 이전 버튼 추가
         back_button = QPushButton('이전', self)
@@ -320,6 +327,7 @@ class MyApp(QWidget):
         # 새로운 페이지 레이아웃 설정
         layout = QVBoxLayout()
         layout.addWidget(disease_label)
+        layout.addWidget(info_textbox)
         layout.addWidget(back_button)
         disease_info_page.setLayout(layout)
 
