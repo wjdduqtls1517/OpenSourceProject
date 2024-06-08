@@ -20,7 +20,8 @@
       python main.py
     
 ## 의존성
-- windows, macOS
+- Windows, MacOS, Linux
+- python >= 3.11.7
 - pyqt5
 
 ## 개발기간
