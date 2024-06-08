@@ -69,6 +69,10 @@ class MyApp(QWidget):
             }
         """)
 
+        self.knowhow_page = QWidget()
+        self.initKnowhowPage()  # Knowhow 페이지 설정 메서드 호출
+        self.stack.addWidget(self.knowhow_page)
+
     def initFirstPage(self):
         vbox = QVBoxLayout()
 
@@ -325,11 +329,21 @@ class MyApp(QWidget):
         back_button.clicked.connect(lambda: self.stack.setCurrentWidget(
             self.fifth_page if self.stack.currentIndex() == 4 else self.third_page))  # 이전 페이지로 이동 (나의 질병 페이지 또는 조심해야 할 병 페이지)
 
+        # 노하우 버튼 추가
+        knowhow_button = QPushButton('노하우', self)
+        knowhow_button.setFont(QFont('Noto Sans', 14))
+        knowhow_button.clicked.connect(lambda: self.stack.setCurrentWidget(self.knowhow_page))  # 새로운 페이지로 이동
+
         # 새로운 페이지 레이아웃 설정
+        button_layout = QHBoxLayout()
+        button_layout.addWidget(back_button)
+        button_layout.addStretch(1)
+        button_layout.addWidget(knowhow_button)
+
         layout = QVBoxLayout()
         layout.addWidget(disease_label)
         layout.addWidget(info_textbox)
-        layout.addWidget(back_button)
+        layout.addLayout(button_layout)
         disease_info_page.setLayout(layout)
 
         # 스택에 새로운 페이지 추가
@@ -367,6 +381,22 @@ class MyApp(QWidget):
         vbox.addLayout(button_layout)
 
         self.fifth_page.setLayout(vbox)
+
+    def initKnowhowPage(self):
+        # Knowhow 페이지 설정
+        knowhow_label = QLabel('노하우 페이지', self)
+        knowhow_label.setFont(QFont('Noto Sans', 20))
+        knowhow_label.setAlignment(Qt.AlignCenter)
+
+        back_button = QPushButton('이전', self)
+        back_button.setFont(QFont('Noto Sans', 14))
+        back_button.clicked.connect(
+            lambda: self.stack.setCurrentWidget(self.fifth_page if self.stack.currentIndex() == 4 else self.third_page))
+
+        layout = QVBoxLayout()
+        layout.addWidget(knowhow_label)
+        layout.addWidget(back_button)
+        self.knowhow_page.setLayout(layout)
 
     def showFourthPage(self):
 
