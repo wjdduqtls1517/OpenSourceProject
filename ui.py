@@ -322,7 +322,8 @@ class MyApp(QWidget):
         # 이전 버튼 추가
         back_button = QPushButton('이전', self)
         back_button.setFont(QFont('Noto Sans', 14))
-        back_button.clicked.connect(lambda: self.stack.setCurrentWidget(self.fourth_page))
+        back_button.clicked.connect(lambda: self.stack.setCurrentWidget(
+            self.fifth_page if self.stack.currentIndex() == 4 else self.third_page))  # 이전 페이지로 이동 (나의 질병 페이지 또는 조심해야 할 병 페이지)
 
         # 새로운 페이지 레이아웃 설정
         layout = QVBoxLayout()
