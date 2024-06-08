@@ -69,6 +69,10 @@ class MyApp(QWidget):
             }
         """)
 
+        self.knowhow_page = QWidget()
+        self.initKnowhowPage()  # Knowhow 페이지 설정 메서드 호출
+        self.stack.addWidget(self.knowhow_page)
+
     def initFirstPage(self):
         vbox = QVBoxLayout()
 
@@ -328,8 +332,7 @@ class MyApp(QWidget):
         # 노하우 버튼 추가
         knowhow_button = QPushButton('노하우', self)
         knowhow_button.setFont(QFont('Noto Sans', 14))
-        knowhow_button.clicked.connect(lambda: self.stack.setCurrentWidget(
-            self.fifth_page if self.stack.currentIndex() == 2 else self.fourth_page))  # 네 번째 페이지 또는 다섯 번째 페이지로 이동
+        knowhow_button.clicked.connect(lambda: self.stack.setCurrentWidget(self.knowhow_page))  # 새로운 페이지로 이동
 
         # 새로운 페이지 레이아웃 설정
         button_layout = QHBoxLayout()
@@ -378,6 +381,22 @@ class MyApp(QWidget):
         vbox.addLayout(button_layout)
 
         self.fifth_page.setLayout(vbox)
+
+    def initKnowhowPage(self):
+        # Knowhow 페이지 설정
+        knowhow_label = QLabel('노하우 페이지', self)
+        knowhow_label.setFont(QFont('Noto Sans', 20))
+        knowhow_label.setAlignment(Qt.AlignCenter)
+
+        back_button = QPushButton('이전', self)
+        back_button.setFont(QFont('Noto Sans', 14))
+        back_button.clicked.connect(
+            lambda: self.stack.setCurrentWidget(self.fifth_page if self.stack.currentIndex() == 4 else self.third_page))
+
+        layout = QVBoxLayout()
+        layout.addWidget(knowhow_label)
+        layout.addWidget(back_button)
+        self.knowhow_page.setLayout(layout)
 
     def showFourthPage(self):
 
