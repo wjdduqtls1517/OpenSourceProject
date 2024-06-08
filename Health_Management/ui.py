@@ -265,7 +265,7 @@ class MyApp(QWidget):
         prev_button.setFont(QFont('Noto Sans', 14))
         prev_button.setFixedSize(100, 40)
         prev_button.clicked.connect(self.prevPage)
-        next_button = QPushButton('완료', self)  # 완료 버튼으로 변경
+        next_button = QPushButton('종료', self)  # 종료 버튼으로 변경
         next_button.setFont(QFont('Noto Sans', 14))
         next_button.setFixedSize(100, 40)
         next_button.clicked.connect(self.finishApp)
