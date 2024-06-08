@@ -152,7 +152,7 @@ class MyApp(QWidget):
         for i, disease in enumerate(self.diseases):
             checkbox = QCheckBox(disease, self)
             checkbox.setFont(QFont('Noto Sans', 16))
-            tooltip_text = self.readDiseaseInfo(os.path.join('diseases', '증상', f'{disease}_증상.txt'))
+            tooltip_text = self.readDiseaseInfo(os.path.join('../diseases', '증상', f'{disease}_증상.txt'))
             checkbox.setToolTip(tooltip_text)
             row = i // 3  # 세로로 3개씩 배치
             col = i % 3  # 가로로 3개씩 배치
@@ -315,7 +315,7 @@ class MyApp(QWidget):
         disease_label.setAlignment(Qt.AlignCenter)
 
         # 질병 정보 읽기
-        disease_info = self.readDiseaseInfo(os.path.join('diseases', '정의', f'{disease_name}.txt'))
+        disease_info = self.readDiseaseInfo(os.path.join('../diseases', '정의', f'{disease_name}.txt'))
 
         # 질병 정보 텍스트 박스 생성
         info_textbox = QTextEdit(self)
