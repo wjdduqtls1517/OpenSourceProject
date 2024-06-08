@@ -17,7 +17,8 @@
       git clone https://github.com/wjdduqtls1517/OpenSourceProject.git
       cd OpenSourceProject
       pip install pyqt5
-      python main.py
+      cd Health_Management
+      python ui.py
     
 ## 의존성
 - Windows, MacOS, Linux
