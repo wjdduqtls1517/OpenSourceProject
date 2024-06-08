@@ -7,6 +7,14 @@
 임정엽(wjdduqtls1517)
 
 ## 설치방법
+- 파이썬 다운로드 <https://www.python.org/downloads/>
+- 터미널에서 다음과 같이 입력.
+  
+      git clone
+      cd OpenSourceProject
+      pip install pyqt5
+      python main.py
+    
 
 ## 의존성
 
