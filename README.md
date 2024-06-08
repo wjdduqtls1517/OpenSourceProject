@@ -6,11 +6,11 @@
 
 
 ## 🧑‍🤝‍🧑멤버
-고세민(gosaemin)
-김재민(JustHaWall)
-임정엽(wjdduqtls1517)
+- 고세민(gosaemin/rhtpals13@naver.com)
+- 김재민(JustHaWall/skyailo22233@gmail.com)
+- 임정엽(wjdduqtls1517/jeongyeup8306@gmail.com)
 
-## 설치방법
+## 설치 및 실행방법
 - 파이썬 다운로드 <https://www.python.org/downloads/>
 - 터미널에서 다음과 같이 입력.
   
@@ -19,10 +19,12 @@
       pip install pyqt5
       python main.py
     
-
 ## 의존성
+- windows, macOS
+- pyqt5
 
-## 실행 방법
+## 개발기간
+- 2024.03.22  ~ 2024.06.08
 
 ## 라이선스
 
